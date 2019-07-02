@@ -127,8 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI StateMachines\CustomStateMachine.cpp" />
     <ClCompile Include="A_Star_Class.cpp" />
-    <ClCompile Include="Source\AI_Squad_Controller.cpp" />
+    <ClCompile Include="AI StateMachines\AI_Squad_Controller.cpp" />
     <ClCompile Include="Source\Blackboard.cpp" />
     <ClCompile Include="Source\body.cpp" />
     <ClCompile Include="Source\Clock.cpp" />
@@ -222,9 +223,10 @@
     <ClCompile Include="Source\MultiAnimationLib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI StateMachines\CustomStateMachine.h" />
     <ClInclude Include="A_Star_Class.h" />
     <ClInclude Include="Cell.h" />
-    <ClInclude Include="AI_Squad_Controller.h" />
+    <ClInclude Include="AI StateMachines\AI_Squad_Controller.h" />
     <ClInclude Include="Source\Blackboard.h" />
     <ClInclude Include="Source\body.h" />
     <ClInclude Include="Source\Clock.h" />

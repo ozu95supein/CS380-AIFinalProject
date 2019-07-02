@@ -73,6 +73,7 @@
 
 #include <PathfindingTests.h>
 #include "../A_Star_Class.h"
-#include "../AI_Squad_Controller.h"
+#include "../AI StateMachines/AI_Squad_Controller.h"
+#include "../AI StateMachines/CustomStateMachine.h"
 #pragma warning(default: 4005)
 #pragma warning(default: 4995)

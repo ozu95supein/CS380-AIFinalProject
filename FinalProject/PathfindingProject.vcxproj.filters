@@ -169,7 +169,8 @@
     <ClCompile Include="A_Star_Class.cpp">
       <Filter>GameObject\A Star</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AI_Squad_Controller.cpp" />
+    <ClCompile Include="AI StateMachines\CustomStateMachine.cpp" />
+    <ClCompile Include="AI StateMachines\AI_Squad_Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\body.h">
@@ -309,7 +310,8 @@
     <ClInclude Include="Cell.h">
       <Filter>GameObject\A Star</Filter>
     </ClInclude>
-    <ClInclude Include="AI_Squad_Controller.h" />
+    <ClInclude Include="AI StateMachines\CustomStateMachine.h" />
+    <ClInclude Include="AI StateMachines\AI_Squad_Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\DXUT\directx.ico">
