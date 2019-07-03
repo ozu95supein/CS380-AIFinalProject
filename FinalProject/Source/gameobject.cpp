@@ -53,7 +53,21 @@ void GameObject::CreateStateMachineManager( void )
 {
 	m_stateMachineManager = new StateMachineManager( *this );
 }
-
+/*****************************************************************************/
+//oscars Code
+void GameObject::SetCustomStateMachine(CustomStateMachine * csm)
+{
+	m_custom_state_machine = csm;
+}
+void GameObject::CreateCustomStateMachine(void)
+{
+	m_custom_state_machine = new AI_Squad_Controller(this);
+}
+void GameObject::CreateAIController(void)
+{
+	m_custom_state_machine = new AI_Squad_Controller(this);
+}
+/*****************************************************************************/
 void GameObject::CreateMovement( void )
 {
 	m_movement = new Movement( *this ); 
@@ -101,6 +115,10 @@ void GameObject::Update( void )
 	if(m_stateMachineManager)
 	{
 		m_stateMachineManager->Update();
+	}
+	if (m_custom_state_machine)
+	{
+		m_custom_state_machine->Update();
 	}
 }
 

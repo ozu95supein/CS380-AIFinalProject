@@ -171,6 +171,8 @@
     </ClCompile>
     <ClCompile Include="AI StateMachines\CustomStateMachine.cpp" />
     <ClCompile Include="AI StateMachines\AI_Squad_Controller.cpp" />
+    <ClCompile Include="AI StateMachines\AI_States\Controller_INIT_State.cpp" />
+    <ClCompile Include="AI StateMachines\AI_States\Controller_Commands_State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\body.h">
@@ -312,6 +314,8 @@
     </ClInclude>
     <ClInclude Include="AI StateMachines\CustomStateMachine.h" />
     <ClInclude Include="AI StateMachines\AI_Squad_Controller.h" />
+    <ClInclude Include="AI StateMachines\AI_States\Controller_INIT_State.h" />
+    <ClInclude Include="AI StateMachines\AI_States\Controller_Commands_State.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\DXUT\directx.ico">
