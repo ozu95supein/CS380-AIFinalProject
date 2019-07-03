@@ -101,7 +101,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
 		//set the custom part to null
 		agent->SetCustomStateMachine(nullptr);
-		
+		/*
 		//oscars code AI controller
 		GameObject * AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "AI_Controller");
 		D3DXVECTOR3 pos1(0.5f, 0.0f, 0.5f);
@@ -112,7 +112,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		AI_Controller->CreateAIController();
 		AI_Controller->SetNormalStateMachineToNull();
 
-		char c = 'c';
+		char c = 'c';*/
 	}
 
 #if defined (PROJECT_THREE)
