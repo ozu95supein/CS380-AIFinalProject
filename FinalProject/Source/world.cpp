@@ -99,8 +99,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		g_database.Store( *agent );
 		agent->CreateStateMachineManager();
 		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
-		//set the custom part to null
-		agent->SetCustomStateMachine(nullptr);
+		
 		/*
 		//oscars code AI controller
 		GameObject * AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "AI_Controller");

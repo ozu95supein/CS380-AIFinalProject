@@ -54,10 +54,7 @@ public:
 	//State machine related
 	void CreateStateMachineManager( void );
 	inline StateMachineManager* GetStateMachineManager( void )	{ ASSERTMSG(m_stateMachineManager, "GameObject::GetStateMachineManager - m_stateMachineManager not set"); return( m_stateMachineManager ); }
-	//oscars Code
-	void SetCustomStateMachine(CustomStateMachine * csm);
-	void CreateCustomStateMachine(void);
-	void CreateAIController(void);
+	
 	void SetNormalStateMachineToNull()
 	{
 		m_stateMachineManager = nullptr;
@@ -91,6 +88,5 @@ private:
 	Body* m_body;
 	CTiny* m_tiny;
 	StateMachineManager* m_stateMachineManager;
-	//oscars code
-	CustomStateMachine * m_custom_state_machine;
+	
 };
