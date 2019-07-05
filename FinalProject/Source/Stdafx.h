@@ -77,6 +77,7 @@
 #include "../AI StateMachines/AI_Squad_Controller.h"
 #include "../AI StateMachines/AI_States/Controller_INIT_State.h"
 #include "../AI StateMachines/AI_States/Controller_Commands_State.h"
+#include "AI_Squad_Controller.h"
 
 #pragma warning(default: 4005)
 #pragma warning(default: 4995)

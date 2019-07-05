@@ -1,4 +1,7 @@
-﻿  gameobject.cpp
-  LINK : C:\Users\oscar.s\Desktop\CS380-AIFinalProject\FinalProject\Debug\PathfindingProject.exe not found or not built by the last incremental link; performing full link
-  PathfindingProject.vcxproj -> C:\Users\oscar.s\Desktop\CS380-AIFinalProject\FinalProject\Debug\PathfindingProject.exe
-  PathfindingProject.vcxproj -> C:\Users\oscar.s\Desktop\CS380-AIFinalProject\FinalProject\Debug\PathfindingProject.pdb (Full PDB)
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(936,5): warning MSB8027: Two or more files with the name of AI_Squad_Controller.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are AI StateMachines\AI_Squad_Controller.cpp, Source\AI_Squad_Controller.cpp.
+  DXUT.cpp
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(3): error C2011: 'AI_Squad_Controller': 'class' type redefinition
+  c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\ai statemachines\ai_squad_controller.h(7): note: see declaration of 'AI_Squad_Controller'
+  Stdafx.cpp
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(3): error C2011: 'AI_Squad_Controller': 'class' type redefinition
+  c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\ai statemachines\ai_squad_controller.h(7): note: see declaration of 'AI_Squad_Controller'
