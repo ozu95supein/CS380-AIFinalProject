@@ -15,7 +15,16 @@ enum StateName {
 enum SubstateName {
 	//empty
 };
+//create all squad members
+void AI_Squad_Controller::CreateSquadMembers()
+{
+	
+}
+void AI_Squad_Controller::AddSquadMember()
+{
+	World::CreateSquadMember();
 
+}
 bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {
 	BeginStateMachine
@@ -70,6 +79,7 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		OnEnter
 		//create squad members
 		std::cout << " Enter  : Create Squad Members" << std::endl;
+		
 	OnUpdate
 		std::cout << " Update : Create Squad Members" << std::endl;
 		std::cout << " Update : Changing State" << std::endl;
@@ -82,7 +92,7 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		//create squad members
 		std::cout << " Enter  :  WAIT" << std::endl;
 	OnUpdate
-		std::cout << " Update : WAIT" << std::endl;
+		//std::cout << " Update : WAIT" << std::endl;
 	OnMsg(MSG_SetGoal)
 		ChangeState(STATE_Calculate);
 	OnExit

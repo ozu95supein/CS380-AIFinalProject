@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="A_Star_Class.cpp" />
     <ClCompile Include="Source\AI_Squad_Controller.cpp" />
+    <ClCompile Include="Source\AI_Squad_Member.cpp" />
     <ClCompile Include="Source\Blackboard.cpp" />
     <ClCompile Include="Source\body.cpp" />
     <ClCompile Include="Source\Clock.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="A_Star_Class.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Source\AI_Squad_Controller.h" />
+    <ClInclude Include="Source\AI_Squad_Member.h" />
     <ClInclude Include="Source\Blackboard.h" />
     <ClInclude Include="Source\body.h" />
     <ClInclude Include="Source\Clock.h" />

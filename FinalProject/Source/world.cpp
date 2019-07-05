@@ -33,7 +33,19 @@ void World::InitializeSingletons( void )
 	m_debugdrawing = &g_debugdrawing;
 	m_terrain = &g_terrain;
 }
+void World::CreateSquadMember(AI_Squad_Controller * controller, CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent)
+{
+	//oscars code AI controller
+	GameObject* SquadMember = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "SquadMember");
+	D3DXVECTOR3 pos1(0.0f, 0.0f, 0.0f);
+	SquadMember->CreateBody(100, pos1);
+	SquadMember->CreateMovement();
+	SquadMember->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+	g_database.Store(*SquadMember);
+	SquadMember->CreateStateMachineManager();
+	SquadMember->GetStateMachineManager()->PushStateMachine(*new AI_Squad_Member(*SquadMember, controller), STATE_MACHINE_QUEUE_0, true);
 
+}
 void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent )
 {
 	if(!m_initialized)
@@ -100,18 +112,17 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		agent->CreateStateMachineManager();
 		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
 		
-		/*
+		
 		//oscars code AI controller
-		GameObject * AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "AI_Controller");
-		D3DXVECTOR3 pos1(0.5f, 0.0f, 0.5f);
-		agent->CreateBody(100, pos1);
-		agent->CreateMovement();
-		agent->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "AI_Controller");
+		D3DXVECTOR3 pos1(0.0f, 0.0f, 0.0f);
+		AI_Controller->CreateBody(100, pos1);
+		AI_Controller->CreateMovement();
+		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
 		g_database.Store(*AI_Controller);
-		AI_Controller->CreateAIController();
-		AI_Controller->SetNormalStateMachineToNull();
-
-		char c = 'c';*/
+		AI_Controller->CreateStateMachineManager();
+		AI_Controller->GetStateMachineManager()->PushStateMachine(*new AI_Squad_Controller(*AI_Controller), STATE_MACHINE_QUEUE_0, true);
+		
 	}
 
 #if defined (PROJECT_THREE)

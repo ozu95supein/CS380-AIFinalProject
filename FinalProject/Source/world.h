@@ -19,7 +19,7 @@ class Terrain;
 class AnimationManager;
 class CMultiAnim;
 class CTiny;
-
+class AI_Squad_Controller;
 class World
 {
 public:
@@ -38,7 +38,8 @@ public:
 	void InvalidateDeviceObjects( void );
 
 	inline AnimationManager& GetAnimationManager()	{ assert( m_animationManager ); return( *m_animationManager ); }
-
+	void CreateSquadMember(AI_Squad_Controller * controller, CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent);
+	
 protected:
 
 	bool m_initialized;

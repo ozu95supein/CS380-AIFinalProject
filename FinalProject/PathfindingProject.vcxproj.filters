@@ -170,6 +170,7 @@
       <Filter>GameObject\A Star</Filter>
     </ClCompile>
     <ClCompile Include="Source\AI_Squad_Controller.cpp" />
+    <ClCompile Include="Source\AI_Squad_Member.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\body.h">
@@ -310,6 +311,7 @@
       <Filter>GameObject\A Star</Filter>
     </ClInclude>
     <ClInclude Include="Source\AI_Squad_Controller.h" />
+    <ClInclude Include="Source\AI_Squad_Member.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\DXUT\directx.ico">
