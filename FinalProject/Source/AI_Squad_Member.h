@@ -13,6 +13,7 @@ public:
 	~AI_Squad_Member(void) {}
 
 	void SetSquadController(AI_Squad_Controller * aisc);
+	bool GoToGoalCell();
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);

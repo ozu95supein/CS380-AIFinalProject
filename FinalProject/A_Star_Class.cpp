@@ -95,24 +95,6 @@ bool A_Star_Class::Check_If_Goal(Cell & c)
 }
 void A_Star_Class::Compute_And_Set_Costs(float & hcost, float & fcost, Cell & c)
 {
-	if ((c.Getx() == 4) && (c.Gety() == 7))
-	{
-		//up
-		char y;
-		auto f = c.GetFCost();
-	}
-	if ((c.Getx() == 3) && (c.Gety() == 7))
-	{
-		//up left
-		char y;
-		auto f = c.GetFCost();
-	}
-	if ((c.Getx() == 5) && (c.Gety() == 7))
-	{
-		//up
-		char y;
-		auto f = c.GetFCost();
-	}
 	hcost = GetHeuristicWeight() * CalculateHeuristic(c);
 	fcost = c.GetGCost() + hcost;
 	c.SetFCost(fcost);

@@ -21,6 +21,13 @@ void AI_Squad_Member::SetSquadController(AI_Squad_Controller * aisc)
 {
 	m_suqad_controller = aisc;
 }
+bool AI_Squad_Member::GoToGoalCell()
+{
+	//bool Movement::ComputePath(int r, int c, bool newRequest)
+	//bool Movement::ComputePathWithTiming(int r, int c, bool newRequest)
+	auto BB = this->m_suqad_controller->GetBlackBoardPointer();
+	bool m = m_owner->GetMovement().ComputePathWithTiming(BB->FinalGoalCell.Gety(), BB->FinalGoalCell.Getx(), true);
+}
 bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {
 	BeginStateMachine
@@ -87,6 +94,13 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 		//create squad members
 		std::cout << "MEMBER IDLE ENTER" << std::endl;
 	OnUpdate
+		//controller tells squad to go to goal
+	OnMsg(MSG_ControllerToSquad_GoToGoal);
+	{
+		//squad member says "copy that" back to 
+		g_database.SendMsgFromSystem(MSG_SquadToController_CopyThat);
+		GoToGoalCell();
+	}
 		
 	OnExit
 		std::cout << "MEMBER IDLE EXIT" << std::endl;

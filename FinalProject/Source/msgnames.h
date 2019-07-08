@@ -50,6 +50,14 @@ REGISTER_MESSAGE_NAME(MSG_CreateSampleTests)
 REGISTER_MESSAGE_NAME(MSG_MapChange)
 REGISTER_MESSAGE_NAME(MSG_ExtraCredit)
 
+//oscar AI project StateMachine messages
+//when the controller wants the squad to go to the goal cell
+REGISTER_MESSAGE_NAME(MSG_ControllerToSquad_GoToGoal)
+//a squad memeber reports that it has reached the goal cell
+REGISTER_MESSAGE_NAME(MSG_SquadToController_ReachedGoal)
+//a message from a squad member ot the controller 
+REGISTER_MESSAGE_NAME(MSG_SquadToController_CopyThat)
+
 REGISTER_MESSAGE_NAME(MSG_SetGoalEnemy)
 REGISTER_MESSAGE_NAME(MSG_ArrivedEnemy)
 REGISTER_MESSAGE_NAME(MSG_SetGoalEnemyRunToPlayer)

@@ -115,14 +115,50 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		
 		//oscars code AI controller
 		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "AI_Controller");
-		D3DXVECTOR3 pos1(0.0f, 0.0f, 0.0f);
+		D3DXVECTOR3 pos1(0.5f, 0.0f, 0.5f);
 		AI_Controller->CreateBody(100, pos1);
 		AI_Controller->CreateMovement();
 		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
 		g_database.Store(*AI_Controller);
 		AI_Controller->CreateStateMachineManager();
-		AI_Controller->GetStateMachineManager()->PushStateMachine(*new AI_Squad_Controller(*AI_Controller), STATE_MACHINE_QUEUE_0, true);
+		//saving the AI_Controller so the squad members can use it
+		AI_Squad_Controller * tempcontroller = new AI_Squad_Controller(*AI_Controller);
+		AI_Controller->GetStateMachineManager()->PushStateMachine(*tempcontroller, STATE_MACHINE_QUEUE_0, true);
 		
+		//AI_Squad_Member(GameObject & object, AI_Squad_Controller * cont) : StateMachine(object), m_moving(true)
+		//Member 1
+		GameObject* Member1 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member1");
+		D3DXVECTOR3 pos2(0.0f, 0.0f, 0.0f);
+		Member1->CreateBody(100, pos2);
+		Member1->CreateMovement();
+		Member1->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		g_database.Store(*Member1);
+		Member1->CreateStateMachineManager();
+		//keep track of the squadmember state machines
+		AI_Squad_Member * tempMember1 = new AI_Squad_Member(*(Member1), tempcontroller);
+		Member1->GetStateMachineManager()->PushStateMachine(*tempMember1, STATE_MACHINE_QUEUE_0, true);
+
+		//Member 2
+		GameObject* Member2 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member2");
+		D3DXVECTOR3 pos3(0.0f, 0.0f, 1.0f);
+		Member2->CreateBody(100, pos3);
+		Member2->CreateMovement();
+		Member2->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		g_database.Store(*Member2);
+		Member2->CreateStateMachineManager();
+		//keep track of the squadmember state machines
+		AI_Squad_Member * tempMember2 = new AI_Squad_Member(*(Member2), tempcontroller);
+		Member2->GetStateMachineManager()->PushStateMachine(*tempMember2, STATE_MACHINE_QUEUE_0, true);
+
+		//create and initialize the bb
+		tempcontroller->CreateAndSetBB();
+		//add squadmembers to the BB
+		tempcontroller->AddSquadMember(Member1, tempMember1);
+		tempcontroller->AddSquadMember(Member2, tempMember2);
+		//set the squadcontroller in the members
+		tempMember1->SetSquadController(tempcontroller);
+		tempMember2->SetSquadController(tempcontroller);
+
 	}
 
 #if defined (PROJECT_THREE)

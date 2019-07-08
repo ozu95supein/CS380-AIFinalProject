@@ -2,7 +2,23 @@
 
 extern D3DXVECTOR3 g_click3D;
 
+/*
+//the goal cell that the Agents must go to
+Cell FinalGoalCell;
+//the cell where the enemy is
+Cell EnemyCell;
+//a vector containing the pointers of the sqad members
+//in game object form
+std::vector<GameObject *> m_squad_members_objects;
+//in AI_Squad_Member form
+std::vector<AI_Squad_Member *> m_squad_members_sm;
 
+//Missions to give to the squad
+Squad_Member_Mission m_main_squad_mission;
+Squad_Member_Mission m_current_squad_mission;
+
+
+*/
 //Add new states here
 enum StateName {
 	STATE_Initialize,	//Note: the first enum is the starting state
@@ -15,15 +31,48 @@ enum StateName {
 enum SubstateName {
 	//empty
 };
-//create all squad members
-void AI_Squad_Controller::CreateSquadMembers()
+//create and set the blackboard that both the controller and the members will use
+void AI_Squad_Controller::CreateAndSetBB()
 {
-	
+	this->mBB = new AI_Squad_BlackBoard();
 }
-void AI_Squad_Controller::AddSquadMember()
+void AI_Squad_Controller::AddSquadMember(GameObject * MemberGO, AI_Squad_Member * MemberSM)
 {
-	World::CreateSquadMember();
+	mBB->m_squad_members_objects.push_back(MemberGO);
+	mBB->m_squad_members_sm.push_back(MemberSM);
+}
+void AI_Squad_Controller::SettingInitialMission()
+{
+	mBB->EnemyCell = Cell();
+	mBB->FinalGoalCell = Cell(33, 33, nullptr);
+	mBB->m_current_squad_mission = MISSION_GoToGoal;
+	mBB->m_main_squad_mission = MISSION_GoToGoal;
+	//this is for the squad members to report back
+	mBB->max_squad_members = mBB->m_squad_members_sm.size();
+	mBB->current_squad_members_performing_mission = 0;
+}
+void AI_Squad_Controller::GiveCommandsToSquad()
+{
+	//SendMessage();
+	//MSG_ControllerToSquad_GoToGoal
+	//
+	//g_database.SendMsgFromSystem(MSG_SetHeuristicWeight, MSG_Data(g_heuristicWeight));
+	if (mBB->m_current_squad_mission == MISSION_GoToGoal)
+	{
+		g_database.SendMsgFromSystem(MSG_ControllerToSquad_GoToGoal);
+	}
+	else if (mBB->m_current_squad_mission == MISSION_KillEnemy)
+	{
 
+	}
+	else if (mBB->m_current_squad_mission == MISSION_NoMission)
+	{
+
+	}
+	else
+	{
+
+	}
 }
 bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {
@@ -81,9 +130,10 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		std::cout << " Enter  : Create Squad Members" << std::endl;
 		
 	OnUpdate
-		std::cout << " Update : Create Squad Members" << std::endl;
+		std::cout << " Update : SettingInitialMission" << std::endl;
+		this->SettingInitialMission();
 		std::cout << " Update : Changing State" << std::endl;
-		ChangeState(STATE_IdleWait);
+		ChangeState(STATE_GiveCommands);
 	OnExit
 		std::cout << " Exit   : Create Squad Members" << std::endl;
 	///////////////////////////////////////////////////////////////
@@ -93,8 +143,8 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		std::cout << " Enter  :  WAIT" << std::endl;
 	OnUpdate
 		//std::cout << " Update : WAIT" << std::endl;
-	OnMsg(MSG_SetGoal)
-		ChangeState(STATE_Calculate);
+	//OnMsg(MSG_SetGoal)
+		//ChangeState(STATE_Calculate);
 	OnExit
 		std::cout << " Exit   : WAIT" << std::endl;
 
@@ -111,11 +161,23 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_GiveCommands)
 		OnEnter
-		//create squad members
 		std::cout << " Enter  :  COMMANDS" << std::endl;
 	OnUpdate
 		std::cout << " Update : COMMANDS" << std::endl;
-	ChangeState(STATE_IdleWait);
+		std::cout << " Update : COMMANDS Given" << std::endl;
+		//keep sending messages untill all squad memebrs copy back
+		GiveCommandsToSquad();
+		//wait for all squad members to report in
+		OnMsg(MSG_SquadToController_CopyThat)
+		{
+			mBB->current_squad_members_performing_mission++;
+			//if the entire squad has copied back we change state
+			if (mBB->current_squad_members_performing_mission >= mBB->max_squad_members)
+			{
+				ChangeState(STATE_IdleWait);
+			}
+		}
+		
 
 	OnExit
 		std::cout << " Exit   : COMMANDS" << std::endl;
