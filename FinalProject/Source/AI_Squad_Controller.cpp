@@ -24,7 +24,8 @@ enum StateName {
 	STATE_Initialize,	//Note: the first enum is the starting state
 	STATE_IdleWait,		//do nothing and wait for squad member report
 	STATE_GiveCommands,	//give commands to the agents
-	STATE_Calculate		//use the blackboard to calculate the best option
+	STATE_Calculate,		//use the blackboard to calculate the best option
+	STATE_Pause			//pause until mouse click
 };
 
 //Add new substates here
@@ -44,7 +45,7 @@ void AI_Squad_Controller::AddSquadMember(GameObject * MemberGO, AI_Squad_Member 
 void AI_Squad_Controller::SettingInitialMission()
 {
 	mBB->EnemyCell = Cell();
-	mBB->FinalGoalCell = Cell(33, 33, nullptr);
+	mBB->FinalGoalCell = Cell(20, 20, nullptr);
 	mBB->m_current_squad_mission = MISSION_GoToGoal;
 	mBB->m_main_squad_mission = MISSION_GoToGoal;
 	//this is for the squad members to report back
@@ -121,26 +122,37 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 	OnMsg(MSG_SetMoving)
 		m_moving = msg->GetBoolData();
 */
-
+	///////////////////////////////////////////////////////////////
+	DeclareState(STATE_Pause)
+	
+	OnEnter
+	//create squad members
+	std::cout << "CONTROLLER PAUSE" << std::endl;
+	
+	OnUpdate
+		OnMsg(MSG_SetGoal)
+		{
+			ChangeState(STATE_GiveCommands);
+		}
+	OnExit
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_Initialize)
 
 		OnEnter
 		//create squad members
-		std::cout << " Enter  : Create Squad Members" << std::endl;
+		std::cout << "CONTROLLER INIT" << std::endl;
 		
 	OnUpdate
-		std::cout << " Update : SettingInitialMission" << std::endl;
+		std::cout << " CONTROLLER Update : SettingInitialMission" << std::endl;
 		this->SettingInitialMission();
-		std::cout << " Update : Changing State" << std::endl;
-		ChangeState(STATE_GiveCommands);
+		std::cout << " CONTROLLER Update : Changing State" << std::endl;
+		ChangeState(STATE_Pause);
 	OnExit
-		std::cout << " Exit   : Create Squad Members" << std::endl;
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_IdleWait)
 		OnEnter
 		//create squad members
-		std::cout << " Enter  :  WAIT" << std::endl;
+		std::cout << "CONTROLLER Enter  :  WAIT" << std::endl;
 	OnUpdate
 		//std::cout << " Update : WAIT" << std::endl;
 	//OnMsg(MSG_SetGoal)
@@ -152,36 +164,35 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 	DeclareState(STATE_Calculate)
 		OnEnter
 		//create squad members
-		std::cout << " Enter  :  CALCULATE" << std::endl;
+		std::cout << "CONTROLLER  :  CALCULATE" << std::endl;
 	OnUpdate
-		std::cout << " Update : CALCULATE" << std::endl;
+		std::cout << "CONTROLLER Update : CALCULATE" << std::endl;
 	ChangeState(STATE_GiveCommands);
 	OnExit
-		std::cout << " Exit   : CALCULATE" << std::endl;
+		
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_GiveCommands)
 		OnEnter
-		std::cout << " Enter  :  COMMANDS" << std::endl;
+		std::cout << "CONTROLLER Enter  :  COMMANDS" << std::endl;
 	OnUpdate
-		std::cout << " Update : COMMANDS" << std::endl;
-		std::cout << " Update : COMMANDS Given" << std::endl;
+		std::cout << "CONTROLLER Update : COMMANDS" << std::endl;
+		std::cout << "CONTROLLER Update : COMMANDS Given" << std::endl;
 		//keep sending messages untill all squad memebrs copy back
 		GiveCommandsToSquad();
 		//wait for all squad members to report in
-		OnMsg(MSG_SquadToController_CopyThat)
-		{
-			mBB->current_squad_members_performing_mission++;
-			//if the entire squad has copied back we change state
-			if (mBB->current_squad_members_performing_mission >= mBB->max_squad_members)
-			{
-				ChangeState(STATE_IdleWait);
-			}
-		}
+		//OnMsg(MSG_SquadToController_CopyThat)
+		//{
+		//	mBB->current_squad_members_performing_mission++;
+		//	//if the entire squad has copied back we change state
+		//	if (mBB->current_squad_members_performing_mission >= mBB->max_squad_members)
+		//	{
+		//		ChangeState(STATE_IdleWait);
+		//	}
+		//}
 		
 
 	OnExit
-		std::cout << " Exit   : COMMANDS" << std::endl;
-
+		
 	/*
 	DeclareState(STATE_CalcPath)
 

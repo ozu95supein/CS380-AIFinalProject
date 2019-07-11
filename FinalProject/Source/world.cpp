@@ -106,27 +106,24 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 
 			FLOAT r, g, b, a;
 
-		GameObject* agent = new GameObject( g_database.GetNewObjectID(), OBJECT_Player, "Player" );
-		D3DXVECTOR3 pos(0.1125f, 0.0f, 0.1375f);
-		agent->CreateBody( 100, pos );
-		agent->CreateMovement();
-		agent->CreateTiny( pMA, pv_pChars, pSM, dTimeCurrent );
-		g_database.Store( *agent );
-		agent->CreateStateMachineManager();
-		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
-		//m_pAI->SetDiffuse(&D3DXVECTOR4(r, g, b, 1.0f));
-		r = 1.0;
-		g = 0.0;
-		b = 0.0;
-		a = 0.0;
-		//agent->GetTiny().SetDiffuse(&D3DXVECTOR4(r, g, b, a));
-		
+		//GameObject* agent = new GameObject( g_database.GetNewObjectID(), OBJECT_Player, "Player" );
+		//D3DXVECTOR3 pos(0.1125f, 0.0f, 0.1375f);
+		//agent->CreateBody( 100, pos );
+		//agent->CreateMovement();
+		//agent->CreateTiny( pMA, pv_pChars, pSM, dTimeCurrent, 1.0f, 0.0f, 0.0f);
+		//g_database.Store( *agent );
+		//agent->CreateStateMachineManager();
+		//agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
+		////m_pAI->SetDiffuse(&D3DXVECTOR4(r, g, b, 1.0f));
+		////agent->GetTiny().SetDiffuse(&D3DXVECTOR4(r, g, b, a));
+		//
+
 		//oscars code AI controller
 		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "AI_Controller");
 		D3DXVECTOR3 pos1(0.5f, 0.0f, 0.5f);
 		AI_Controller->CreateBody(100, pos1);
 		AI_Controller->CreateMovement();
-		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 1.0f, 0.0f);
 		g_database.Store(*AI_Controller);
 		AI_Controller->CreateStateMachineManager();
 		//saving the AI_Controller so the squad members can use it
@@ -140,7 +137,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		D3DXVECTOR3 pos2(0.0f, 0.0f, 0.0f);
 		Member1->CreateBody(100, pos2);
 		Member1->CreateMovement();
-		Member1->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		Member1->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 0.0f, 1.0f);
 		g_database.Store(*Member1);
 		Member1->CreateStateMachineManager();
 		//keep track of the squadmember state machines
@@ -153,7 +150,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		D3DXVECTOR3 pos3(0.0f, 0.0f, 1.0f);
 		Member2->CreateBody(100, pos3);
 		Member2->CreateMovement();
-		Member2->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		Member2->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 0.0f, 1.0f);
 		g_database.Store(*Member2);
 		Member2->CreateStateMachineManager();
 		//keep track of the squadmember state machines

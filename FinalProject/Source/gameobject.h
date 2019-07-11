@@ -72,7 +72,9 @@ public:
 	inline Body& GetBody( void )					{ ASSERTMSG(m_body, "GameObject::GetBody - m_body not set"); return( *m_body ); }
 
 	//Tiny
-	void CreateTiny( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent );
+	//void CreateTiny( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent );
+	void CreateTiny(CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent, float red = 1.0f, float green = 1.0f, float blue = 1.0f);
+
 	inline CTiny& GetTiny( void )					{ ASSERTMSG(m_tiny, "GameObject::GetModel - m_tiny not set"); return( *m_tiny ); }
 
 private:

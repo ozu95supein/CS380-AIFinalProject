@@ -1,53 +1,7 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\debug\statemch.obj' because it is being used by another process.
-  DXUT.cpp
-  Stdafx.cpp
-  MultiAnimationLib.cpp
-  MultiAnimation.cpp
-  triggersystem.cpp
-  statemch.cpp
-  msgroute.cpp
-  msg.cpp
-  debuglog.cpp
-  world.cpp
-  terrain.cpp
-  Map.cpp
-  debugdrawing.cpp
-  database.cpp
-  SDKwavefile.cpp
-  SDKsound.cpp
-  SDKmisc.cpp
-  DXUTsettingsdlg.cpp
-  DXUTres.cpp
-  DXUTmisc.cpp
-  DXUTgui.cpp
-  DXUTenum.cpp
-  Generating Code...
-  Compiling...
-  DXUTcamera.cpp
-  Tiny.cpp
-  terrain_student.cpp
-  AnimationInstance.cpp
-  AllocHierarchy.cpp
-  Random.cpp
-  PathfindingTests.cpp
-  movement_student.cpp
-  agent.cpp
-  movement.cpp
-  gameobject.cpp
-  Enemy_student.cpp
-  Enemy.cpp
-  Clock.cpp
-  body.cpp
-  Blackboard.cpp
-  AI_Squad_Member.cpp
-  AI_Squad_Controller.cpp
-  A_Star_Class.cpp
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(590): warning C4305: 'return': truncation from 'double' to 'float'
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(613): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(619): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(625): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(631): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\a_star_class.cpp(83): warning C4172: returning address of local variable or temporary: c
+﻿  world.cpp
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\world.cpp(107): warning C4101: 'a': unreferenced local variable
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\world.cpp(107): warning C4101: 'b': unreferenced local variable
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\world.cpp(107): warning C4101: 'g': unreferenced local variable
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\world.cpp(107): warning C4101: 'r': unreferenced local variable
   PathfindingProject.vcxproj -> C:\Users\oscar.s\Desktop\CS380-AIFinalProject\FinalProject\Debug\PathfindingProject.exe
   PathfindingProject.vcxproj -> C:\Users\oscar.s\Desktop\CS380-AIFinalProject\FinalProject\Debug\PathfindingProject.pdb (Full PDB)
