@@ -27,6 +27,7 @@ bool AI_Squad_Member::GoToGoalCell()
 	//bool Movement::ComputePathWithTiming(int r, int c, bool newRequest)
 	auto BB = this->m_suqad_controller->GetBlackBoardPointer();
 	bool m = m_owner->GetMovement().ComputePathWithTiming(BB->FinalGoalCell.Gety(), BB->FinalGoalCell.Getx(), true);
+	return m;
 }
 bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {

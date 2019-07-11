@@ -103,6 +103,9 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 #else
 
 	{	//Agent
+
+			FLOAT r, g, b, a;
+
 		GameObject* agent = new GameObject( g_database.GetNewObjectID(), OBJECT_Player, "Player" );
 		D3DXVECTOR3 pos(0.1125f, 0.0f, 0.1375f);
 		agent->CreateBody( 100, pos );
@@ -111,7 +114,12 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		g_database.Store( *agent );
 		agent->CreateStateMachineManager();
 		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
-		
+		//m_pAI->SetDiffuse(&D3DXVECTOR4(r, g, b, 1.0f));
+		r = 1.0;
+		g = 0.0;
+		b = 0.0;
+		a = 0.0;
+		//agent->GetTiny().SetDiffuse(&D3DXVECTOR4(r, g, b, a));
 		
 		//oscars code AI controller
 		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "AI_Controller");
@@ -124,7 +132,8 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		//saving the AI_Controller so the squad members can use it
 		AI_Squad_Controller * tempcontroller = new AI_Squad_Controller(*AI_Controller);
 		AI_Controller->GetStateMachineManager()->PushStateMachine(*tempcontroller, STATE_MACHINE_QUEUE_0, true);
-		
+		//AI_Controller->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f));
+
 		//AI_Squad_Member(GameObject & object, AI_Squad_Controller * cont) : StateMachine(object), m_moving(true)
 		//Member 1
 		GameObject* Member1 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member1");
@@ -137,6 +146,7 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		//keep track of the squadmember state machines
 		AI_Squad_Member * tempMember1 = new AI_Squad_Member(*(Member1), tempcontroller);
 		Member1->GetStateMachineManager()->PushStateMachine(*tempMember1, STATE_MACHINE_QUEUE_0, true);
+		//Member1->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f));
 
 		//Member 2
 		GameObject* Member2 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member2");
@@ -149,6 +159,8 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 		//keep track of the squadmember state machines
 		AI_Squad_Member * tempMember2 = new AI_Squad_Member(*(Member2), tempcontroller);
 		Member2->GetStateMachineManager()->PushStateMachine(*tempMember2, STATE_MACHINE_QUEUE_0, true);
+		//Member2->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f));
+
 
 		//create and initialize the bb
 		tempcontroller->CreateAndSetBB();
