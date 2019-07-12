@@ -81,11 +81,9 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 	DeclareState(STATE_Initialize)
 
 	OnEnter
-		//create squad members
 		std::cout << "MEMBER INIT ENTER" << std::endl;
 	OnUpdate
 		std::cout << "MEMBER INIT UPDATE" << std::endl;
-		std::cout << "" << std::endl;
 		ChangeState(STATE_DoNothing);
 	OnExit
 		std::cout << "MEMBER INIT EXIT" << std::endl;
@@ -112,9 +110,7 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 		//create squad members
 		std::cout << "MEMBER KILL ENTER" << std::endl;
 	OnUpdate
-		std::cout << "" << std::endl;
 	OnExit
-		std::cout << "" << std::endl;
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_GoToGoal)
 	OnEnter

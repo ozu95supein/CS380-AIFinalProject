@@ -69,7 +69,11 @@ public:
 
 	//Body component
 	void CreateBody( int health, D3DXVECTOR3& pos );
-	inline Body& GetBody( void )					{ ASSERTMSG(m_body, "GameObject::GetBody - m_body not set"); return( *m_body ); }
+	inline Body& GetBody( void )					
+	{
+		ASSERTMSG(m_body, "GameObject::GetBody - m_body not set"); 
+		return( *m_body ); 
+	}
 
 	//Tiny
 	//void CreateTiny( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent );
