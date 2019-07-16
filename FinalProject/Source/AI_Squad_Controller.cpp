@@ -20,6 +20,7 @@ Squad_Member_Mission m_current_squad_mission;
 
 */
 //Add new states here
+
 enum StateName {
 	STATE_Initialize,	//Note: the first enum is the starting state
 	STATE_IdleWait,		//do nothing and wait for squad member report
@@ -74,6 +75,22 @@ void AI_Squad_Controller::GiveCommandsToSquad()
 	{
 
 	}
+}
+void AI_Squad_Controller::SquadMemberReachedGoal()
+{
+
+}
+void AI_Squad_Controller::EnemySighted()
+{
+	found_enemy = true;
+	//place every member in the calculate state
+	std::vector<AI_Squad_Member *> vec = mBB->m_squad_members_sm;
+	//iterate though the list of members and change their state
+	for (std::vector<AI_Squad_Member *>::iterator it = mBB->m_squad_members_sm.begin(); it != mBB->m_squad_members_sm.end(); it++)
+	{
+		(*it)->ChangeToCalculate();
+	}
+	ChangeState(STATE_Calculate);
 }
 bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {
@@ -154,10 +171,11 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		//create squad members
 		std::cout << "CONTROLLER Enter  :  WAIT" << std::endl;
 	OnUpdate
-		OnMsg(MSG_SquadToController_ReachedGoal)
-		{
-			
-		}
+	OnMsg(MSG_SquadToController_ReachedGoal)
+		SquadMemberReachedGoal();
+	OnMsg(MSG_SquadToController_EnemySighted)
+		EnemySighted();
+		
 		//std::cout << " Update : WAIT" << std::endl;
 	//OnMsg(MSG_SetGoal)
 		//ChangeState(STATE_Calculate);

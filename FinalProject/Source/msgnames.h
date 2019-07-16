@@ -57,6 +57,9 @@ REGISTER_MESSAGE_NAME(MSG_ControllerToSquad_GoToGoal)
 REGISTER_MESSAGE_NAME(MSG_SquadToController_ReachedGoal)
 //a message from a squad member ot the controller 
 REGISTER_MESSAGE_NAME(MSG_SquadToController_CopyThat)
+//MessageToAlert of enemy
+REGISTER_MESSAGE_NAME(MSG_SquadToController_EnemySighted)
+
 
 REGISTER_MESSAGE_NAME(MSG_SetGoalEnemy)
 REGISTER_MESSAGE_NAME(MSG_ArrivedEnemy)

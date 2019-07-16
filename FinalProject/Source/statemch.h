@@ -274,7 +274,12 @@ public:
 	D3DXVECTOR2* GetStateVariableVector2( int id, StateVariableScope scope );
 	D3DXVECTOR3* GetStateVariableVector3( int id, StateVariableScope scope );
 	void DeclareVariable( int id, StateVariableScope scope );
-
+	StateMachineManager * GetManager()
+	{
+		return m_mgr;
+	}
+	//placed this in public because lmao I need it here
+	void ChangeState(unsigned int newState);
 
 protected:
 
@@ -373,7 +378,6 @@ protected:
 	
 	//Change State
 	void PopState( void );
-	void ChangeState( unsigned int newState );
 	void ChangeStateDelayed( float delay, unsigned int newState );
 	void ChangeSubstate( unsigned int newSubstate );
 	void ChangeSubstateDelayed( float delay, unsigned int newSubstate );
@@ -499,6 +503,11 @@ public:
 	void PopStateMachine( StateMachineQueue queue );
 	void DeleteStateMachineQueue( StateMachineQueue queue );
 
+	//oscars additions
+	GameObject * GetOwner()
+	{
+		return m_owner;
+	}
 private:
 
 	GameObject * m_owner;													//GameObject that owns this state machine

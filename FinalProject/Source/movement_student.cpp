@@ -21,6 +21,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 	if( useAStar )
 	{
 		if (!usingPesronalASTAR)
+
 		{
 			bool slc;
 			///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +108,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 				{
 					if (m_singleStep == true)
 					{
-						bool result = g_A_Star.RunAStar(true);
+						bool result1 = g_A_Star.RunAStar(true);
 						auto c = g_A_Star.GetCurrentAnalyzed();
 						D3DXVECTOR3 position = g_terrain.GetCoordinates(c.Gety(), c.Getx());
 						//g_terrain.SetColor(c.Gety(), c.Getx(), DEBUG_COLOR_YELLOW);
@@ -135,7 +136,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 					}
 					else
 					{
-						bool result = g_A_Star.RunAStar(false);
+						bool result1 = g_A_Star.RunAStar(false);
 						//get the full path of A_star class
 						if (GetRubberbandPath())
 						{
@@ -171,7 +172,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 			{
 				if (m_singleStep == true)
 				{
-					bool result = g_A_Star.RunAStar(true);
+					bool result1 = g_A_Star.RunAStar(true);
 					auto c = g_A_Star.GetCurrentAnalyzed();
 					D3DXVECTOR3 position = g_terrain.GetCoordinates(c.Gety(), c.Getx());
 					//g_terrain.SetColor(c.Gety(), c.Getx(), DEBUG_COLOR_YELLOW);
@@ -199,7 +200,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 				}
 				else
 				{
-					bool result = g_A_Star.RunAStar(false);
+					bool result1 = g_A_Star.RunAStar(false);
 					//get the full path of A_star class
 					if (GetRubberbandPath())
 					{
@@ -306,7 +307,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 				{
 					if (m_singleStep == true)
 					{
-						bool result = GetPersonalASTAR()->RunAStar(true);
+						bool result1 = GetPersonalASTAR()->RunAStar(true);
 						auto c = GetPersonalASTAR()->GetCurrentAnalyzed();
 						D3DXVECTOR3 position = g_terrain.GetCoordinates(c.Gety(), c.Getx());
 						//g_terrain.SetColor(c.Gety(), c.Getx(), DEBUG_COLOR_YELLOW);
@@ -330,11 +331,12 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 								g_terrain.SetColor(it->Gety(), it->Getx(), DEBUG_COLOR_YELLOW);
 								m_waypointList.push_back(position);
 							}
+
 						}
 					}
 					else
 					{
-						bool result = GetPersonalASTAR()->RunAStar(false);
+						bool result1 = GetPersonalASTAR()->RunAStar(false);
 						//get the full path of A_star class
 						if (GetRubberbandPath())
 						{
@@ -351,7 +353,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 						}
 					}
 
-					return g_A_Star.ispathfound();
+					return GetPersonalASTAR()->ispathfound();
 				}
 				//full on straighline optimization for start and goal
 				else
@@ -370,7 +372,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 			{
 				if (m_singleStep == true)
 				{
-					bool result = GetPersonalASTAR()->RunAStar(true);
+					bool result1 = GetPersonalASTAR()->RunAStar(true);
 					auto c = GetPersonalASTAR()->GetCurrentAnalyzed();
 					D3DXVECTOR3 position = g_terrain.GetCoordinates(c.Gety(), c.Getx());
 					//g_terrain.SetColor(c.Gety(), c.Getx(), DEBUG_COLOR_YELLOW);
@@ -398,7 +400,7 @@ bool Movement::ComputePath( int r, int c, bool newRequest )
 				}
 				else
 				{
-					bool result = GetPersonalASTAR()->RunAStar(false);
+					bool result1 = GetPersonalASTAR()->RunAStar(false);
 					//get the full path of A_star class
 					if (GetRubberbandPath())
 					{

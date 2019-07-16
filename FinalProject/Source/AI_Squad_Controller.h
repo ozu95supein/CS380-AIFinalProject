@@ -13,7 +13,7 @@ class AI_Squad_Member;
 class AI_Squad_Controller : public StateMachine
 {
 	friend class PathfindingTests;
-
+	friend class AI_Squad_Member;
 public:
 
 	AI_Squad_Controller(GameObject & object)
@@ -43,6 +43,8 @@ public:
 	{
 		m_animStyle = i;
 	}
+	void SquadMemberReachedGoal();
+	void EnemySighted();
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
@@ -54,7 +56,7 @@ private:
 	bool m_moving;
 	int MAXSQUADMEMBERS = 4;
 	AI_Squad_BlackBoard * mBB;
-
+	bool found_enemy = false;
 };
 class AI_Squad_BlackBoard
 {
@@ -76,4 +78,28 @@ public:
 	int max_squad_members;
 	int current_squad_members_performing_mission;
 	int squad_members_at_goal = 0;
+	//a vector of enemy agents on the terrain
+	std::vector<GameObject *> m_enemy_agents;
+	std::vector<GameObject *> m_enemy_agents_visible;
+	bool CheckForEnemyBB(float range, GameObject * checker, GameObject * EnemyFound)
+	{
+		for (std::vector<GameObject *>::iterator it = m_enemy_agents.begin(); it != m_enemy_agents.end(); it++)
+		{
+			auto check_pos = checker->GetBody().GetPos();
+			auto enemy_pos = (*it)->GetBody().GetPos();
+
+			float x_diff = abs(check_pos.x - enemy_pos.x);
+			float z_diff = abs(check_pos.z - enemy_pos.z);
+			float distance = sqrt((x_diff*x_diff) + (z_diff*z_diff));
+			if (distance <= range)
+			{
+				m_enemy_agents_visible.push_back(EnemyFound);
+				EnemyFound = (*it);
+				return true;
+			}
+		}
+		EnemyFound = NULL;
+		return false;
+	}
+	
 };
