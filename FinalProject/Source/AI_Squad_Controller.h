@@ -45,6 +45,10 @@ public:
 	}
 	void SquadMemberReachedGoal();
 	void EnemySighted();
+	void SetCurrentEnemy(GameObject * e)
+	{
+		mBB->CurrentEnemy = e;
+	}
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
@@ -65,6 +69,7 @@ public:
 	Cell FinalGoalCell;
 	//the cell where the enemy is
 	Cell EnemyCell;
+	GameObject * CurrentEnemy;
 	//a vector containing the pointers of the sqad members
 	//in game object form
 	std::vector<GameObject *> m_squad_members_objects;

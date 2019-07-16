@@ -45,6 +45,25 @@ bool AI_Squad_Member::GoToGoalCell()
 	}
 	return m;
 }
+bool AI_Squad_Member::GoToEnemyCell()
+{
+	//bool Movement::ComputePath(int r, int c, bool newRequest)
+	//bool Movement::ComputePathWithTiming(int r, int c, bool newRequest)
+	auto BB = this->m_suqad_controller->GetBlackBoardPointer();
+	bool m;
+	if (moving_newRequest)
+	{
+		std::cout << "MEMBER: new request run astar" << std::endl;
+		m = m_owner->GetMovement().ComputePathWithTiming(BB->EnemyCell.Gety(), BB->EnemyCell.Getx(), true);
+		moving_newRequest = false;
+	}
+	else
+	{
+		std::cout << "MEMBER: run astar" << std::endl;
+		m = m_owner->GetMovement().ComputePathWithTiming(BB->EnemyCell.Gety(), BB->EnemyCell.Getx(), false);
+	}
+	return m;
+}
 void AI_Squad_Member::ProcessTheGoToGoalResult(bool path)
 {
 	if (path == true)
@@ -59,6 +78,11 @@ void AI_Squad_Member::ProcessTheGoToGoalResult(bool path)
 		}
 		ChangeState(STATE_MemberDoNothing);
 	}
+}
+void AI_Squad_Member::KillEnemyFirstCall()
+{
+	moving_newRequest = true;
+	GoToEnemyCell();
 }
 bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
 {
@@ -119,6 +143,16 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 	OnExit
 		std::cout << "MEMBER INIT EXIT" << std::endl;
 	///////////////////////////////////////////////////////////////
+	DeclareState(State_MemberHelpCalculate)
+
+		OnEnter
+		std::cout << "MEMBER Calculate ENTER" << std::endl;
+	OnUpdate
+		OnMsg(MSG_ControllerToSquad_KillEnemy);
+			KillEnemyFirstCall();
+	OnExit
+		std::cout << "MEMBER Calculate EXIT" << std::endl;
+	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_MemberDoNothing)
 	OnEnter
 		//create squad members
@@ -154,7 +188,15 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 		std::cout << "MEMBER GoToCell" << std::endl;
 
 		//check for enemies in nearby cells
-		CheckForEnemy(0.2f);
+		GameObject * temp = NULL;
+		bool enemy = CheckForEnemy(0.2f, temp);
+		if (enemy)
+		{
+			m_suqad_controller->SetCurrentEnemy(temp);
+			//REGISTER_MESSAGE_NAME(MSG_SquadToController_CopyThat)
+			g_database.SendMsgFromSystem(MSG_SquadToController_EnemySighted);
+			break;
+		}
 		bool result = false;
 		result = GoToGoalCell();
 		ProcessTheGoToGoalResult(result);
@@ -185,16 +227,12 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 
 	EndStateMachine
 }
-bool AI_Squad_Member::CheckForEnemy(float range)
+bool AI_Squad_Member::CheckForEnemy(float range, GameObject * EnemyFound)
 {
-	//bool CheckForEnemyBB(float range, GameObject * checker, GameObject * EnemyFound);
-	GameObject * EnemyFound = NULL;
 	bool result = m_suqad_controller->GetBlackBoardPointer()->CheckForEnemyBB(range, (this->GetManager()->GetOwner()), EnemyFound);
 	if (result)
 	{
-		//REGISTER_MESSAGE_NAME(MSG_SquadToController_CopyThat)
-		g_database.SendMsgFromSystem(MSG_SquadToController_EnemySighted);
-		ChangeState(STATE_MemberDoNothing);
+		return true;
 	}
 	else
 	{

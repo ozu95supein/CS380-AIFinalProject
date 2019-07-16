@@ -59,7 +59,8 @@ REGISTER_MESSAGE_NAME(MSG_SquadToController_ReachedGoal)
 REGISTER_MESSAGE_NAME(MSG_SquadToController_CopyThat)
 //MessageToAlert of enemy
 REGISTER_MESSAGE_NAME(MSG_SquadToController_EnemySighted)
-
+//controller orders to kill enemy
+REGISTER_MESSAGE_NAME(MSG_ControllerToSquad_KillEnemy)
 
 REGISTER_MESSAGE_NAME(MSG_SetGoalEnemy)
 REGISTER_MESSAGE_NAME(MSG_ArrivedEnemy)

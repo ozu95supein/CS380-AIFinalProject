@@ -65,7 +65,7 @@ void AI_Squad_Controller::GiveCommandsToSquad()
 	}
 	else if (mBB->m_current_squad_mission == MISSION_KillEnemy)
 	{
-
+		g_database.SendMsgFromSystem(MSG_ControllerToSquad_KillEnemy);
 	}
 	else if (mBB->m_current_squad_mission == MISSION_NoMission)
 	{
@@ -188,8 +188,21 @@ bool AI_Squad_Controller::States(State_Machine_Event event, MSG_Object * msg, in
 		//create squad members
 		std::cout << "CONTROLLER  :  CALCULATE" << std::endl;
 	OnUpdate
-		std::cout << "CONTROLLER Update : CALCULATE" << std::endl;
-	ChangeState(STATE_GiveCommands);
+	{
+		//if the situation is that the squad has found an enemy we need to change the new mission to kill enemy
+		if (found_enemy)
+		{
+			mBB->m_current_squad_mission = MISSION_KillEnemy;
+			
+			int curR, curC;
+			D3DXVECTOR3 curpos = mBB->CurrentEnemy->GetBody().GetPos();
+			g_terrain.GetRowColumn(&curpos, &curR, &curC);
+			Cell c(curR, curC, NULL);
+			mBB->EnemyCell = c;
+		}
+		ChangeState(STATE_GiveCommands);
+	}
+	
 	OnExit
 		
 	///////////////////////////////////////////////////////////////

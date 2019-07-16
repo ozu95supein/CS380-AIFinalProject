@@ -20,8 +20,10 @@ public:
 		m_animStyle = i;
 	}
 	void ProcessTheGoToGoalResult(bool path);
-	bool CheckForEnemy(float range);
+	bool CheckForEnemy(float range, GameObject * EnemyFound);
 	void ChangeToCalculate();
+	bool GoToEnemyCell();
+	void KillEnemyFirstCall();
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
