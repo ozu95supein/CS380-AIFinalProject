@@ -20,7 +20,7 @@ enum MovementMode
 	MOVEMENT_SEEK_TARGET,
 	MOVEMENT_WAYPOINT_LIST
 };
-
+class A_Star_Class;
 
 class Movement
 {
@@ -71,6 +71,54 @@ public:
 	void SetDebugDraw(bool enable)							{ m_debugDraw = enable; }
 	bool GetDebugDraw() const								{ return m_debugDraw; }
 
+	//adding my own vars cause fuck those in the framework
+	bool isController;
+	bool isMember1;
+	bool isMember2;
+
+	void SetAsController()
+	{
+		isController = true;
+		isMember1 = false;
+		isMember2 = false;
+
+	}
+	void SetAsMember1()
+	{
+		isController = false;
+		isMember1 = true;
+		isMember2 = false;
+
+	}
+	void SetAsMember2()
+	{
+		isController = false;
+		isMember1 = false;
+		isMember2 = true;
+
+	}
+	GameObject * GetMyOwner()
+	{
+		return m_owner;
+	}
+	A_Star_Class * m_personal_ASTAR;
+	bool usingPesronalASTAR = false;
+	A_Star_Class * GetPersonalASTAR();
+
+	void CreateNewAStar();
+
+	void SetSpecsForProject(float h_value, int h_calc, bool smooth, bool rubber, bool straight, bool single, bool extra, bool draw)
+	{
+		SetHeuristicWeight(h_value);
+		SetHeuristicCalc(h_calc);
+		SetSmoothPath(smooth);
+		SetRubberbandPath(rubber);
+		SetStraightlinePath(straight);
+		SetSingleStep(single);
+		SetExtraCredit(extra);
+		SetDebugDraw(draw);
+
+	}
 protected:
 
 	GameObject* m_owner;

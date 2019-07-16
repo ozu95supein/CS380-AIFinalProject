@@ -78,6 +78,56 @@ public:
 	void Propagation(float decay, float growing, bool computeNegativeInfluence);
 	void NormalizeOccupancyMap(bool computeNegativeInfluence);
 
+	void UpdateControllerPos(D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+	{
+		int r, c;
+		GetRowColumn(&pos, &r, &c);
+
+		g_blackboard.UpdateControllerPos(r, c);
+
+		if (m_rController < 0 || m_cController < 0)
+		{
+			m_rController = r;
+			m_cController = c;
+			m_dirController = dir;
+		}
+		else if ((m_rController != r || m_cController != c) && (g_blackboard.GetTerrainAnalysisType() == TerrainAnalysis_VisibleToPlayer || g_blackboard.GetTerrainAnalysisType() == TerrainAnalysis_Search))
+		{
+			m_rController = r;
+			m_cController = c;
+			m_dirController = dir;
+			m_reevaluateAnalysis = true;
+		}
+	}
+	void UpdateMember1Pos(D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+	{
+		int r, c;
+		GetRowColumn(&pos, &r, &c);
+
+		g_blackboard.UpdateMember1Pos(r, c);
+
+		if (m_rMember1 < 0 || m_cMember1 < 0)
+		{
+			m_rMember1 = r;
+			m_cMember1 = c;
+			m_dirMember1 = dir;
+		}
+	}
+	void UpdateMember2Pos(D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+	{
+		int r, c;
+		GetRowColumn(&pos, &r, &c);
+
+		g_blackboard.UpdateMember2Pos(r, c);
+
+		if (m_rMember2 < 0 || m_cMember2 < 0)
+		{
+			m_rMember2 = r;
+			m_cMember2 = c;
+			m_dirMember2 = dir;
+		}
+	}
+
 protected:
 
 	// Map List parameters
@@ -93,7 +143,14 @@ protected:
 
 	bool m_reevaluateAnalysis;
 	int m_rPlayer, m_cPlayer;
+	int m_rController, m_cController;
+	int m_rMember1, m_cMember1;
+	int m_rMember2, m_cMember2;
+
 	D3DXVECTOR3 m_dirPlayer;
+	D3DXVECTOR3 m_dirController;
+	D3DXVECTOR3 m_dirMember1;
+	D3DXVECTOR3 m_dirMember2;
 
 	float m_timerUpdatePropagation;
 
@@ -106,4 +163,5 @@ protected:
 	float ClosestWall(int row, int col);
 	bool LineIntersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	float Lerp(float num1, float num2, float t);
+
 };

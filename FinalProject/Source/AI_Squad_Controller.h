@@ -19,11 +19,11 @@ public:
 	AI_Squad_Controller(GameObject & object)
 		: StateMachine(object), m_moving(true)
 	{
-		
+
 	}
-	~AI_Squad_Controller(void) 
+	~AI_Squad_Controller(void)
 	{
-		
+
 	}
 	AI_Squad_Controller & Get_AI_Squad_Controller()
 	{
@@ -39,6 +39,10 @@ public:
 	}
 	void SettingInitialMission();
 	void GiveCommandsToSquad();
+	void SetAnimStyleBruteForce(int i)
+	{
+		m_animStyle = i;
+	}
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
@@ -71,4 +75,5 @@ public:
 
 	int max_squad_members;
 	int current_squad_members_performing_mission;
+	int squad_members_at_goal = 0;
 };

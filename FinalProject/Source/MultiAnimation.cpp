@@ -518,7 +518,7 @@ HRESULT CALLBACK OnResetDevice(IDirect3DDevice9* pd3dDevice,
 	//Initialize world if needed
 	g_pWorld->Initialize(&g_MultiAnim, &g_v_pCharacters, &g_DSound, DXUTGetGlobalTimer()->GetTime());
 
-
+	auto c = 0;
 
 #ifdef OLD_TINY
 	// If there is no instance, make sure we have at least one.

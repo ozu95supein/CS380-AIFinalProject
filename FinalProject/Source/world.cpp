@@ -104,62 +104,70 @@ void World::Initialize( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoun
 
 	{	//Agent
 
-			FLOAT r, g, b, a;
+		FLOAT r, g, b, a;
 
-		GameObject* agent = new GameObject( g_database.GetNewObjectID(), OBJECT_Player, "Player" );
-		D3DXVECTOR3 pos(0.1125f, 0.0f, 0.1375f);
-		agent->CreateBody( 100, pos );
-		agent->CreateMovement();
-		agent->CreateTiny( pMA, pv_pChars, pSM, dTimeCurrent );
-		g_database.Store( *agent );
-		agent->CreateStateMachineManager();
-		agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
-		//m_pAI->SetDiffuse(&D3DXVECTOR4(r, g, b, 1.0f));
-		r = 1.0;
-		g = 0.0;
-		b = 0.0;
-		a = 0.0;
-		//agent->GetTiny().SetDiffuse(&D3DXVECTOR4(r, g, b, a));
-		
+		//GameObject* agent = new GameObject( g_database.GetNewObjectID(), OBJECT_Player, "Player" );
+		//D3DXVECTOR3 pos(0.1125f, 0.0f, 0.1375f);
+		//agent->CreateBody( 100, pos );
+		//agent->CreateMovement();
+		//agent->CreateTiny( pMA, pv_pChars, pSM, dTimeCurrent, 1.0f, 0.0f, 0.0f);
+		//g_database.Store( *agent );
+		//agent->CreateStateMachineManager();
+		//agent->GetStateMachineManager()->PushStateMachine( *new Agent( *agent ), STATE_MACHINE_QUEUE_0, true );
+
+
 		//oscars code AI controller
-		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Character, "AI_Controller");
+		GameObject* AI_Controller = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "AI_Controller");
 		D3DXVECTOR3 pos1(0.5f, 0.0f, 0.5f);
 		AI_Controller->CreateBody(100, pos1);
 		AI_Controller->CreateMovement();
-		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		AI_Controller->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 1.0f, 0.0f);
 		g_database.Store(*AI_Controller);
 		AI_Controller->CreateStateMachineManager();
 		//saving the AI_Controller so the squad members can use it
 		AI_Squad_Controller * tempcontroller = new AI_Squad_Controller(*AI_Controller);
 		AI_Controller->GetStateMachineManager()->PushStateMachine(*tempcontroller, STATE_MACHINE_QUEUE_0, true);
+		AI_Controller->GetMovement().SetAsController();
+		tempcontroller->SetAnimStyleBruteForce(1);
+		
+		AI_Controller->GetMovement().SetSpecsForProject(1.0f, 1, false, true, true, true, false, true);
 		//AI_Controller->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f));
+
 
 		//AI_Squad_Member(GameObject & object, AI_Squad_Controller * cont) : StateMachine(object), m_moving(true)
 		//Member 1
 		GameObject* Member1 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member1");
-		D3DXVECTOR3 pos2(0.0f, 0.0f, 0.0f);
+		D3DXVECTOR3 pos2(0.1f, 0.0f, 0.1f);
 		Member1->CreateBody(100, pos2);
 		Member1->CreateMovement();
-		Member1->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		Member1->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 0.0f, 1.0f);
 		g_database.Store(*Member1);
 		Member1->CreateStateMachineManager();
 		//keep track of the squadmember state machines
 		AI_Squad_Member * tempMember1 = new AI_Squad_Member(*(Member1), tempcontroller);
 		Member1->GetStateMachineManager()->PushStateMachine(*tempMember1, STATE_MACHINE_QUEUE_0, true);
-		//Member1->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f));
+		Member1->GetMovement().SetAsMember1();
+		Member1->GetMovement().CreateNewAStar();
+		tempMember1->SetAnimStyleBruteForce(1);
+
+		Member1->GetMovement().SetSpecsForProject(1.0f, 1, false, true, true, true, false, true);
 
 		//Member 2
 		GameObject* Member2 = new GameObject(g_database.GetNewObjectID(), OBJECT_Player, "Member2");
-		D3DXVECTOR3 pos3(0.0f, 0.0f, 1.0f);
+		D3DXVECTOR3 pos3(0.8f, 0.0f, 0.1f);
 		Member2->CreateBody(100, pos3);
 		Member2->CreateMovement();
-		Member2->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent);
+		Member2->CreateTiny(pMA, pv_pChars, pSM, dTimeCurrent, 0.0f, 0.0f, 1.0f);
 		g_database.Store(*Member2);
 		Member2->CreateStateMachineManager();
 		//keep track of the squadmember state machines
 		AI_Squad_Member * tempMember2 = new AI_Squad_Member(*(Member2), tempcontroller);
 		Member2->GetStateMachineManager()->PushStateMachine(*tempMember2, STATE_MACHINE_QUEUE_0, true);
-		//Member2->GetTiny().SetDiffuse(&D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f));
+		Member2->GetMovement().SetAsMember2();
+		Member2->GetMovement().CreateNewAStar();
+		tempMember2->SetAnimStyleBruteForce(1);
+
+		Member2->GetMovement().SetSpecsForProject(1.0f, 1, false, true, true, true, false, true);
 
 
 		//create and initialize the bb

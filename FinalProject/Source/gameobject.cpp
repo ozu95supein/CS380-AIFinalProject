@@ -63,17 +63,18 @@ void GameObject::CreateBody( int health, D3DXVECTOR3& pos )
 	m_body = new Body( health, pos, *this );
 }
 
-void GameObject::CreateTiny( CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent )
+void GameObject::CreateTiny(CMultiAnim *pMA, std::vector< CTiny* > *pv_pChars, CSoundManager *pSM, double dTimeCurrent, float red, float green, float blue)
 {
-	m_tiny = new CTiny( *this );
-	if( m_tiny == NULL )
+	m_tiny = new CTiny(*this);
+	if (m_tiny == NULL)
 	{
 		return;
 	}
 
-	if( SUCCEEDED( m_tiny->Setup( pMA, pv_pChars, pSM, dTimeCurrent ) ) )
+	if (SUCCEEDED(m_tiny->Setup(pMA, pv_pChars, pSM, dTimeCurrent)))
 	{
-		m_tiny->SetSounds( true );
+		m_tiny->SetSounds(true);
+		m_tiny->SetDiffuse(red, green, blue);
 	}
 	else
 	{

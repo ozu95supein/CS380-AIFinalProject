@@ -96,6 +96,78 @@ public:
 	SampleTestStatus GetSampleTestStatus(void)			{ return m_sampleTestStatus; }
 
 	MovementSetting &GetMovementSetting(void)			{ return m_movementSetting; }
+	//oscars addition
+	//controller
+	int	Controller_r;
+	int	Controller_c;
+	int	Controller_rStart;
+	int	Controller_cStart;
+	int	Controller_rGoal;
+	int	Controller_cGoal;
+	//memmber1
+	int	Member1_r;
+	int	Member1_c;
+	int	Member1_rStart;
+	int	Member1_cStart;
+	int	Member1_rGoal;
+	int	Member1_cGoal;
+	//member2
+	int	Member2_r;
+	int	Member2_c;
+	int	Member2_rStart;
+	int	Member2_cStart;
+	int	Member2_rGoal;
+	int	Member2_cGoal;
+
+	//controller
+	void UpdateControllerPos(int r, int c)
+	{
+		Controller_r = r;
+		Controller_c = c;
+	}
+	void UpdateControllerStartPos(void)
+	{
+		Controller_rStart = Controller_r;
+		Controller_cStart = Controller_c;
+	}
+	void UpdateControllerGoalPos(int r, int c)
+	{
+		Controller_rGoal = Controller_r;
+		Controller_cGoal = Controller_c;
+	}
+	//Member 1
+	void UpdateMember1Pos(int r, int c)
+	{
+		Member1_r = r;
+		Member1_c = c;
+	}
+	void UpdateMember1StartPos(void)
+	{
+		Member1_rStart = Member1_r;
+		Member1_cStart = Member1_c;
+	}
+	void UpdateMember1GoalPos(int r, int c)
+	{
+		Member1_rGoal = Member1_r;
+		Member1_cGoal = Member1_c;
+	}
+	//Member2
+	void UpdateMember2Pos(int r, int c)
+	{
+		Member2_r = r;
+		Member2_c = c;
+	}
+	void UpdateMember2StartPos(void)
+	{
+		Member2_rStart = Member2_r;
+		Member2_cStart = Member2_c;
+	}
+	void UpdateMember2GoalPos(int r, int c)
+	{
+		Member2_rGoal = Member2_r;
+		Member2_cGoal = Member2_c;
+	}
+
 
 private:
 	int	m_rPlayer;		// player row position

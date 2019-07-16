@@ -14,6 +14,11 @@ public:
 
 	void SetSquadController(AI_Squad_Controller * aisc);
 	bool GoToGoalCell();
+	bool moving_newRequest = true;
+	void SetAnimStyleBruteForce(int i)
+	{
+		m_animStyle = i;
+	}
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
@@ -24,4 +29,5 @@ private:
 	int m_colGoal;
 	bool m_moving;
 	AI_Squad_Controller * m_suqad_controller;
+
 };

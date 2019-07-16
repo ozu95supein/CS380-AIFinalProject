@@ -26,8 +26,17 @@ Movement::Movement(GameObject& owner)
 	m_debugDraw(true)
 {
 	m_target.x = m_target.y = m_target.z = 0.0f;
+	m_personal_ASTAR = nullptr;
 }
-
+A_Star_Class * Movement::GetPersonalASTAR()
+{
+	return m_personal_ASTAR;
+}
+void Movement::CreateNewAStar()
+{
+	m_personal_ASTAR = new A_Star_Class();
+	usingPesronalASTAR = true;
+}
 Movement::~Movement(void)
 {
 
@@ -136,9 +145,25 @@ void Movement::Animate(double dTimeDelta)
 
 	m_owner->GetTiny().SetOrientation();
 
-	if (m_owner->GetType() != OBJECT_Enemy)
-		g_terrain.UpdatePlayerPos(m_owner->GetBody().GetPos(), m_owner->GetBody().GetDir());
-
+	
+	//do this for the controllers and members
+	if (isController == true)
+	{
+		g_terrain.UpdateControllerPos(m_owner->GetBody().GetPos(), m_owner->GetBody().GetDir());
+	}
+	else if(isMember1 == true)
+	{
+		g_terrain.UpdateMember1Pos(m_owner->GetBody().GetPos(), m_owner->GetBody().GetDir());
+	}
+	else if (isMember2 == true)
+	{
+		g_terrain.UpdateMember2Pos(m_owner->GetBody().GetPos(), m_owner->GetBody().GetDir());
+	}
+	else
+	{
+		if (m_owner->GetType() != OBJECT_Enemy)
+			g_terrain.UpdatePlayerPos(m_owner->GetBody().GetPos(), m_owner->GetBody().GetDir());
+	}
 }
 
 void Movement::SetIdleSpeed(void)

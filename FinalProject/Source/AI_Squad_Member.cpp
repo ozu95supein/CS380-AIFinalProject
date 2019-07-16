@@ -26,7 +26,18 @@ bool AI_Squad_Member::GoToGoalCell()
 	//bool Movement::ComputePath(int r, int c, bool newRequest)
 	//bool Movement::ComputePathWithTiming(int r, int c, bool newRequest)
 	auto BB = this->m_suqad_controller->GetBlackBoardPointer();
-	bool m = m_owner->GetMovement().ComputePathWithTiming(BB->FinalGoalCell.Gety(), BB->FinalGoalCell.Getx(), true);
+	bool m;
+	if (moving_newRequest)
+	{
+		std::cout << "MEMBER: new request run astar" << std::endl;
+		m = m_owner->GetMovement().ComputePathWithTiming(BB->FinalGoalCell.Gety(), BB->FinalGoalCell.Getx(), true);
+		moving_newRequest = false;
+	}
+	else
+	{
+		std::cout << "MEMBER: run astar" << std::endl;
+		m = m_owner->GetMovement().ComputePathWithTiming(BB->FinalGoalCell.Gety(), BB->FinalGoalCell.Getx(), false);
+	}
 	return m;
 }
 bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int state, int substate)
@@ -81,11 +92,9 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 	DeclareState(STATE_Initialize)
 
 	OnEnter
-		//create squad members
 		std::cout << "MEMBER INIT ENTER" << std::endl;
 	OnUpdate
 		std::cout << "MEMBER INIT UPDATE" << std::endl;
-		std::cout << "" << std::endl;
 		ChangeState(STATE_DoNothing);
 	OnExit
 		std::cout << "MEMBER INIT EXIT" << std::endl;
@@ -100,7 +109,9 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 	{
 		//squad member says "copy that" back to 
 		g_database.SendMsgFromSystem(MSG_SquadToController_CopyThat);
+		moving_newRequest = true;
 		GoToGoalCell();
+		ChangeState(STATE_GoToGoal);
 	}
 		
 	OnExit
@@ -112,17 +123,27 @@ bool AI_Squad_Member::States(State_Machine_Event event, MSG_Object * msg, int st
 		//create squad members
 		std::cout << "MEMBER KILL ENTER" << std::endl;
 	OnUpdate
-		std::cout << "" << std::endl;
 	OnExit
-		std::cout << "" << std::endl;
 	///////////////////////////////////////////////////////////////
 	DeclareState(STATE_GoToGoal)
 	OnEnter
 		//create squad members
 		std::cout << "MEMBER GOTO ENTER" << std::endl;
 	OnUpdate
-		std::cout << "" << std::endl;
-		
+		std::cout << "MEMBER GoToCell" << std::endl;
+		bool result = GoToGoalCell();
+		if (result == true)
+		{
+			std::cout << "MEMBER Reached Goal" << std::endl;
+			g_database.SendMsgFromSystem(MSG_SquadToController_ReachedGoal);
+			m_suqad_controller->GetBlackBoardPointer()->squad_members_at_goal++;
+			if (m_suqad_controller->GetBlackBoardPointer()->squad_members_at_goal == m_suqad_controller->GetBlackBoardPointer()->max_squad_members)
+			{
+				std::cout << "MEMBER ALL MEMBERS HAVE REACHED GOAL" << std::endl;
+
+			}
+			ChangeState(STATE_DoNothing);
+		}
 	OnExit
 		std::cout << "" << std::endl;
 	///////////////////////////////////////////////////////////////
