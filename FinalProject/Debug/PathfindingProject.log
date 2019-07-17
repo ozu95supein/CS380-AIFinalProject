@@ -1,8 +1,8 @@
 ﻿  DXUT.cpp
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(50): error C2027: use of undefined type 'AI_Squad_BlackBoard'
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(52): error C2027: use of undefined type 'AI_Squad_BlackBoard'
   c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(9): note: see declaration of 'AI_Squad_BlackBoard'
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(50): error C2227: left of '->SetBBEnemy' must point to class/struct/union/generic type
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(52): error C2227: left of '->SetBBEnemy' must point to class/struct/union/generic type
   Stdafx.cpp
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(50): error C2027: use of undefined type 'AI_Squad_BlackBoard'
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(52): error C2027: use of undefined type 'AI_Squad_BlackBoard'
   c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(9): note: see declaration of 'AI_Squad_BlackBoard'
-c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(50): error C2227: left of '->SetBBEnemy' must point to class/struct/union/generic type
+c:\users\oscar.s\desktop\cs380-aifinalproject\finalproject\source\ai_squad_controller.h(52): error C2227: left of '->SetBBEnemy' must point to class/struct/union/generic type

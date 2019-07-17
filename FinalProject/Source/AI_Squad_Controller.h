@@ -45,11 +45,12 @@ public:
 	}
 	void SquadMemberReachedGoal();
 	void EnemySighted();
+	
+	AI_Squad_BlackBoard * mBB;
 	void SetCurrentEnemy(GameObject * e)
 	{
 		mBB->SetBBEnemy(e);
 	}
-	AI_Squad_BlackBoard * mBB;
 	bool found_enemy = false;
 private:
 
