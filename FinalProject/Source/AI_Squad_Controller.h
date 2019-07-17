@@ -47,8 +47,10 @@ public:
 	void EnemySighted();
 	void SetCurrentEnemy(GameObject * e)
 	{
-		mBB->CurrentEnemy = e;
+		mBB->SetBBEnemy(e);
 	}
+	AI_Squad_BlackBoard * mBB;
+	bool found_enemy = false;
 private:
 
 	virtual bool States(State_Machine_Event event, MSG_Object * msg, int state, int substate);
@@ -59,8 +61,7 @@ private:
 	int m_colGoal;
 	bool m_moving;
 	int MAXSQUADMEMBERS = 4;
-	AI_Squad_BlackBoard * mBB;
-	bool found_enemy = false;
+	
 };
 class AI_Squad_BlackBoard
 {
@@ -70,6 +71,10 @@ public:
 	//the cell where the enemy is
 	Cell EnemyCell;
 	GameObject * CurrentEnemy;
+	void SetBBEnemy(GameObject * e)
+	{
+		CurrentEnemy = e;
+	}
 	//a vector containing the pointers of the sqad members
 	//in game object form
 	std::vector<GameObject *> m_squad_members_objects;
